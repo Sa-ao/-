@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非受控组件</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Login extends React.Component {
+
+            loginSubmin = (event) => {
+                event.preventDefault()
+                const { username, password } = this
+                alert(`用户名时：${username.value},密码是：${password.value}`)
+            }
+            render() {
+                return (
+                    <div>
+                        <form action="http:baidu.com" onSubmit={this.loginSubmin}>
+                            用户名：<input type="text" ref={c => this.username = c} name="username" />
+                            密码：  <input type="password" ref={c => this.password = c} name="password" />
+                            <button>登录</button>
+                        </form>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Login />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

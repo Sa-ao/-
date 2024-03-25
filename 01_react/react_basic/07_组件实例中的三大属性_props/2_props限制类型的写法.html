@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2_props限制类型的写法</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <!-- 引入prop-types库用于限制props中的属性 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        //实现根据后台得到的某个对象进行渲染的功能
+
+        class Person extends React.Component{
+                render() {
+                    const {name,sex,age} = this.props
+                    return <div>
+                        <ul>
+                            <li>姓名：{name}</li>
+                            <li>性别：{sex}</li>
+                            <li>年龄：{age+1}</li>
+                        </ul>
+                    </div>
+                }
+            }
+        const p1 = {name:"sa"}
+        //问题，如果显示的年龄需要比后端传递的年龄大一岁，直接在render中加一时，若传递过来的年龄是字符串格式,此时年龄显示的数据为181，未避免出现这种问题，react可以限制props中接收的属性类型
+        //15xx版本前的写法为（此种方式的属性是在React上的）
+        // Person.propTypes = {
+        //     age:React.PropTypes.number.required
+        //}
+
+        //16.xxx版本后的写法,需要引入prop-types校验库
+        Person.propTypes={
+            name:PropTypes.string.isRequired,//字符串且必填
+            sex:PropTypes.string,//字符串
+            age:PropTypes.number,//数值
+            speak:PropTypes.func//函数
+        }
+
+        //设置默认的属性值
+        Person.defaultProps = {
+            sex:"男",
+            age:18
+        }
+        
+        function test(){
+            console.log("测试")
+        }
+
+        ReactDOM.render(<Person  {...p1} speak={123}/>, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

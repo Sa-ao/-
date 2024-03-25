@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = { count: 0 }
+            add = () => {
+                this.setState({ count: this.state.count + 1 })
+            }
+            force = ()=>{
+                this.forceUpdate();
+            }
+            closeDemo = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById("containerDiv"))
+            }
+            //执行setState方法时执行，返回值为ture则执行render为false则不执行render
+            shouldComponentUpdate = ()=>{
+                console.log("shouldComponentUpdate")
+                return this.state.count <= 2 
+            }
+            //组件将被更新时执行
+            componentWillUpdate =()=>{
+                console.log("componentWillUpdate")
+            }
+
+            //组件更新完成后执行
+            componentDidUpdate =()=>{
+                console.log("componentDidUpdate")
+            }
+
+            //将要挂载时执行
+            componentWillMount() {
+                console.log("componentWillMount")
+            }
+            //渲染
+            render() {
+                console.log("render")
+                let { count } = this.state
+                return (
+                    <div>
+                        <h1>求和数为{count}</h1>
+                        <button onClick={this.add}>点击+1</button>
+                        <button onClick={this.force}>强制更新</button>
+                        <button onClick={this.closeDemo}>关闭</button>
+                    </div>
+                )
+            }
+            //挂载完之后执行
+            componentDidMount() {
+                console.log("componentDidMount")
+            }
+            //卸载前执行
+            componentWillUnmount() {
+                console.log("componentWillUnmount")
+            }
+
+        }
+        ReactDOM.render(<Demo />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

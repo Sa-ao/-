@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类的基础知识</title>
+</head>
+
+<body>
+    <button id="btn1">按钮1</button>
+    <button id="btn2">按钮2</button>
+    <button onclick="btnClick()">按钮3</button>
+    <script type="text/javascript">
+
+        document.getElementById("btn1").addEventListener("click", () => {
+            console.log("点击了按钮1")
+        })
+
+        document.getElementById("btn2").onclick = function () {
+            console.log("点击了按钮2")
+        }
+
+        function btnClick() {
+            console.log("点击了按钮3")
+        }
+
+
+
+    </script>
+</body>
+
+</html>

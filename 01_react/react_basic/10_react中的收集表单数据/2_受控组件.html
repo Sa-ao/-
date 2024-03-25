@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>受控组件</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Login extends React.Component {
+            state = { username: "", password: "" }
+            loginSubmin = (event) => {
+                event.preventDefault()
+                const { username, password } = this.state
+                alert(`用户名时：${username},密码是：${password}`)
+            }
+            saveUsername = (event) => {
+                this.setState({ username: event.target.value })
+            }
+            savePassword = (event) => {
+                this.setState({ password: event.target.value })
+            }
+            render() {
+                return (
+                    <div>
+                        <form action="http:baidu.com" onSubmit={this.loginSubmin}>
+                            用户名：<input type="text" onChange={this.saveUsername} name="username" />
+                            密码：  <input type="password" onChange={this.savePassword} name="password" />
+                            <button>登录</button>
+                        </form>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Login />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

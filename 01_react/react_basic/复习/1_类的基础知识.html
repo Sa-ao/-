@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类的基础知识</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        class Person {
+            //构造器
+            constructor(name, age) {
+                //this默认为类的实例对象
+                this.name = name
+                this.age = age
+            }
+            //一般方法
+            speak() {
+                //this默认为类的实例对象
+                console.log(`我叫${this.name},年龄是${this.age}`)
+            }
+
+            isDead = false
+
+            sing = function () {
+                console.log('这是普通函数sing中的this:', this)
+            }
+
+            rap = () => {
+                console.log('这是箭头函数rap中的this:', this)
+            }
+        }
+        //创建实例
+        const p1 = new Person('sa', 18)
+        console.log(p1)
+        p1.speak();
+        const t1 = p1.sing
+        p1.sing()
+        t1()
+        const t2 = p1.rap
+        p1.rap()
+        t2()
+        class Student extends Person {
+            constructor(name, age, grade) {
+                super(name, age)
+                this.grade = grade
+            }
+            speak() {
+                console.log(`我叫${this.name},我的年龄是${this.age},我读${this.grade}`)
+            }
+            static write = {
+                test:"测试"
+            } 
+        }
+        const s1 = new Student('sa', 18, '大一')
+        s1.speak();
+        const x = s1.speak;
+        // x()//此时speck方法中输出的this为undefined,
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数式组件使用props</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <!-- 引入prop-types库用于限制props中的属性 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/babel">
+        //实现根据后台得到的某个对象进行渲染的功能
+        function Person(props) {
+            const {name,sex,age} = props
+            return <div>
+                <ul>
+                    <li>姓名：{name}</li>
+                    <li>性别：{sex}</li>
+                    <li>年龄：{age + 1}</li>
+                </ul>
+            </div>
+        }
+        const p1 = { name: "sa" }
+        
+        Person.propTypes={
+            name:PropTypes.string.isRequired,//字符串且必填
+            sex:PropTypes.string,//字符串
+            age:PropTypes.number,//数值
+            speak:PropTypes.func//函数
+        }
+
+        //设置默认的属性值
+        Person.defaultProps = {
+            sex:"男",
+            age:18
+        }
+
+        ReactDOM.render(<Person  {...p1} />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

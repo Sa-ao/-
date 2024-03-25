@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回调函数形式使用ref</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = {showStatus:true}
+            updateState = ()=>{
+                this.setState({showStatus:!this.state.showStatus})
+            }
+            showInpValue1 = () => {
+                console.log(this)
+                alert(this.inp1.value)
+            }
+
+            showInpValue2 = () => {
+                alert(this.inp2.value)
+            }
+            setInp2 = (currentNode)=>{
+                this.inp2 = currentNode;
+                console.log('节点2',currentNode)
+            }
+            render() {
+                const {showStatus} = this.state
+                return (
+                    <div>
+                        <h1>现在的状态是{showStatus?'显示':'隐藏'}</h1>
+                        <input ref={currentNode=>{this.inp1 = currentNode;console.log('节点1',currentNode)}}></input>
+                        <button onClick={this.showInpValue1}>点击显示左侧输入框的值</button><br />
+                        <input ref={this.setInp2}></input>
+                        <button onClick={this.showInpValue2}>点击显示左侧输入框的值</button><br />
+                        <button onClick={this.updateState}>点击更新状态</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串格式使用refs</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+            showInpValue1 = () => {
+                console.log(this)
+                alert(this.refs.inp1.value)
+            }
+
+            showInpValue2 = () => {
+                alert(this.refs.inp2.value)
+            }
+            render() {
+                return (
+                    <div>
+                        <input ref="inp1"></input>
+                        <button onClick={this.showInpValue1}>点击显示左侧输入框的值</button><br />
+                        <input ref="inp2"></input>
+                        <button onClick={this.showInpValue2}>点击显示左侧输入框的值</button><br />
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

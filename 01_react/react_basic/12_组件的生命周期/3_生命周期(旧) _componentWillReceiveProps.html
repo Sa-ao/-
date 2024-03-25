@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Father extends React.Component {
+            //初始化状态
+            state = { showText: "我是子组件" }
+            updateChild = () => {
+                this.setState({ showText: "更新后的子组件" })
+            }
+            //执行setState方法时执行，返回值为ture则执行render为false则不执行render
+            shouldComponentUpdate = () => {
+                console.log("父组件---shouldComponentUpdate")
+                return true
+            }
+            //组件将被更新时执行
+            componentWillUpdate = () => {
+                console.log("父组件---componentWillUpdate")
+            }
+
+            render() {
+                console.log("父组件---render")
+                return (
+                    <div>
+                        <h1>父组件</h1>
+                        <button onClick={this.updateChild}>更新子组件</button>
+                        <Child showText={this.state.showText} />
+                    </div>
+                )
+            }
+
+            //组件更新完成后执行
+            componentDidUpdate = () => {
+                console.log("父组件---componentDidUpdate")
+            }
+        }
+
+        class Child extends React.Component {
+            componentWillReceiveProps = () => {
+                console.log("子组件---componentWillReceiveProps")
+            }
+            shouldComponentUpdate = () => {
+                console.log("子组件---shouldComponentUpdate")
+                return true
+            }
+            //组件将被更新时执行
+            componentWillUpdate = () => {
+                console.log("子组件---componentWillUpdate")
+            }
+
+            render() {
+                console.log("子组件---render")
+                return (
+                    <div>
+                        <h1>{this.props.showText}</h1>
+                    </div>
+                )
+            }
+            //组件更新完成后执行
+            componentDidUpdate = () => {
+                console.log("子组件---componentDidUpdate")
+            }
+        }
+        ReactDOM.render(<Father />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>
