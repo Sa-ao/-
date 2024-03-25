@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+</head>
+<style>
+    .ul_class {
+        width: 200px;
+        height: 150px;
+        background-color: blue;
+        overflow: auto;
+    }
+
+    .li_class {
+        height: 30px;
+        background-color: red;
+    }
+</style>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = { arr: [] }
+            ulRef = React.createRef()
+            constructor(props) {
+                super(props)
+                console.log("constructor")
+            }
+
+            static getDerivedStateFromProps(props, state) {
+                console.log("getDerivedStateFromProps", props, state);
+                return null;
+            }
+
+            render() {
+                console.log("render")
+                return (
+                    <div>
+                        <ul className="ul_class" ref={this.ulRef}>
+                            {this.state.arr.map((item, index) => {
+                                return <li className="li_class" key={index}>{item}</li>
+                            })}
+                        </ul>
+
+                    </div>
+                )
+            }
+            timer = null
+            componentDidMount() {
+                console.log("componentDidMount")
+                //挂载后更新列表中的数据
+                this.timer = setInterval(() => {
+                    const { arr } = this.state
+                    this.setState({ arr: [arr.length + 1, ...arr] })
+                }, 1000)
+
+            }
+
+            getSnapshotBeforeUpdate(preProps, preState) {
+                console.log("getSnapeshotBeforeUpdate", preProps, preState);
+                return this.ulRef.current.scrollHeight;
+            }
+
+            componentDidUpdate(preProps, preState, shotValue) {
+                console.log("componentDidUpdate", preProps, preState, shotValue)
+                this.ulRef.current.scrollTop += this.ulRef.current.scrollHeight - shotValue
+                if (this.ulRef.current.scrollTop > 60) {
+                    clearInterval(this.timer)
+                }
+            }
+
+
+        }
+        ReactDOM.render(<Demo name="demo" />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>
