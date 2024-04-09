@@ -30,17 +30,17 @@
                 ReactDOM.unmountComponentAtNode(document.getElementById("containerDiv"))
             }
             //执行setState方法时执行，返回值为ture则执行render为false则不执行render
-            shouldComponentUpdate = ()=>{
+            shouldComponentUpdate (){
                 console.log("shouldComponentUpdate")
                 return this.state.count <= 2 
             }
             //组件将被更新时执行
-            componentWillUpdate =()=>{
+            componentWillUpdate (){
                 console.log("componentWillUpdate")
             }
 
             //组件更新完成后执行
-            componentDidUpdate =()=>{
+            componentDidUpdate (){
                 console.log("componentDidUpdate")
             }
 			//构造器函数

@@ -25,12 +25,12 @@
                 this.setState({ showText: "更新后的子组件" })
             }
             //执行setState方法时执行，返回值为ture则执行render为false则不执行render
-            shouldComponentUpdate = () => {
+            shouldComponentUpdate (){
                 console.log("父组件---shouldComponentUpdate")
                 return true
             }
             //组件将被更新时执行
-            componentWillUpdate = () => {
+            componentWillUpdate (){
                 console.log("父组件---componentWillUpdate")
             }
 
@@ -46,21 +46,21 @@
             }
 
             //组件更新完成后执行
-            componentDidUpdate = () => {
+            componentDidUpdate (){
                 console.log("父组件---componentDidUpdate")
             }
         }
 
         class Child extends React.Component {
-            componentWillReceiveProps = () => {
+            componentWillReceiveProps (){
                 console.log("子组件---componentWillReceiveProps")
             }
-            shouldComponentUpdate = () => {
+            shouldComponentUpdate (){
                 console.log("子组件---shouldComponentUpdate")
                 return true
             }
             //组件将被更新时执行
-            componentWillUpdate = () => {
+            componentWillUpdate (){
                 console.log("子组件---componentWillUpdate")
             }
 
@@ -73,7 +73,7 @@
                 )
             }
             //组件更新完成后执行
-            componentDidUpdate = () => {
+            componentDidUpdate (){
                 console.log("子组件---componentDidUpdate")
             }
         }

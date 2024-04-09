@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = { persons:[{
+                id:1,
+                name:"person1",
+                age:10
+            },{
+                id:2,
+                name:"person2",
+                age:10
+            }] }
+            
+            add = ()=>{
+                let newPerson = {id:this.state.persons.length+1,name:"person"+(this.state.persons.length+1),age:"10"}
+                this.setState({persons:[newPerson,...this.state.persons]})
+            }
+            //渲染
+            render() {
+                let { persons } = this.state
+                
+                console.log(persons)
+                return (
+                    <div>
+                        <button onClick={this.add}>点击添加一个</button>
+                        <ul>{persons.map((item,index)=>{
+                            return <li key={index}>名字：{item.name} 年龄是{item.age} <input type="text"/></li>
+                        })}</ul>
+
+                        <hr/>
+                        <hr/>
+                        <ul>{persons.map((item,index)=>{
+                            return <li key={item.id}>名字：{item.name} 年龄是{item.age} <input type="text"/></li>
+                        })}</ul>
+
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>

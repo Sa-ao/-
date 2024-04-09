@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+</head>
+
+<body>
+    <!--容器-->
+    <div id="containerDiv"></div>
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel,用于将jsx转成js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Demo extends React.Component {
+            state = { date: new Date() }
+            
+            componentWillMount(){
+                setInterval(()=>{
+                  this.setState({date:new Date()})
+                },2000)
+            }
+            //渲染
+            render() {
+                console.log("render")
+                let { count } = this.state
+                return (
+                    <div>
+                        <input type="text" />
+                        <span>当前时间为：{this.state.date.toTimeString()}</span>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo />, document.getElementById('containerDiv'))
+    </script>
+</body>
+
+</html>
