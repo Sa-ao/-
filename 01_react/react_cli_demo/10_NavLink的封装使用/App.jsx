@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import Header from './components/Header' //一般组件
 import MyNavLink from './components/MyNavLink' //一般组件
 import Home from './pages/Home' //路由组件
@@ -30,22 +30,8 @@ export default class App extends Component {
 							<div className="panel-body">
 
 								{/* 注册路由 */}
-								<Switch>
-								{/* 当出现多个路由时，最好使用Switch组件包裹，这会使匹配到一个路由后不会继续往下匹配，效率更高 */}
 								<Route path="/home" component={Home} />
 								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-								<Route path="/about" component={About} />
-
-								</Switch>
-								
 							</div>
 						</div>
 					</div>
